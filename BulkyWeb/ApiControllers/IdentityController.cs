@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using BulkyWeb.Application.CustomLib.Interfaces;
+using Newtonsoft.Json;
 
 namespace BulkyWeb.ApiControllers
 {
@@ -88,9 +89,8 @@ namespace BulkyWeb.ApiControllers
                 }
                 
                 var userInfo = _unitOfWork.UserInfo.Get(x => x.UserAuthen.Email == request.email);
-                var userAuthorize = userInfo.UserAuthorize.Select(x => x.AuthorizationId).ToList();
 
-                await CreateCookies(userInfo, userAuthorize);
+                await CreateCookies(userInfo, userInfo.UserAuthorize.Select(x => x.AuthorizationId).ToList());
                 return Ok(new
                 {
                     message = "login successful."
@@ -110,6 +110,60 @@ namespace BulkyWeb.ApiControllers
         {
             try
             {
+                var errValidatePasswordMessage = _ctoLib.Validator.Passowrd(request.Password);
+                
+                if (!string.IsNullOrWhiteSpace(errValidatePasswordMessage))
+                {
+                    return BadRequest(new
+                    {
+                        message = errValidatePasswordMessage
+                    });
+                }
+                if (request.ConfirmPassword != request.Password)
+                {
+                    return BadRequest(new
+                    {
+                        message = "Password and confirm password not euqal."
+                    });
+                }
+
+                var userAuth = _unitOfWork.UserAuthen.Get(x => x.Email == request.Email);
+                if (userAuth != null)
+                {
+                    throw new Exception("this user is exists");
+                }
+                var dateNow = DateTime.Now;
+                var newUserAuth = new UserAuthen();
+                newUserAuth.Email = request.Email;
+                newUserAuth.PasswordHashed = BCrypt.Net.BCrypt.HashPassword(request.Password);
+                newUserAuth.CreatedDate = dateNow;
+                newUserAuth.UpdatedDate = dateNow;
+
+                var newUserInfo = new UserInfo();
+                newUserInfo.UserAuthenId = newUserAuth.Id;
+                newUserInfo.Name = request.Name;
+                newUserInfo.Surname = request.Surname;
+                newUserInfo.Position = "admin"; //Mock data for testing
+                newUserInfo.CreatedDate = dateNow;
+                newUserInfo.UpdatedDate = dateNow;
+
+                var newUserAthorizeList = new List<UserAuthorize>();
+                foreach (var item in request.AuthorizeId)
+                {
+                    var newUserAuthorize = new UserAuthorize();
+                    newUserAuthorize.UserInfoId = newUserInfo.Id;
+                    newUserAuthorize.AuthorizationId = item;
+                    newUserAthorizeList.Add(newUserAuthorize);
+                }
+                _unitOfWork.UserAuthen.Add(newUserAuth);
+                _unitOfWork.UserInfo.Add(newUserInfo);
+                _unitOfWork.UserAuthorize.AddRange(newUserAthorizeList);
+                
+                await _unitOfWork.SaveAsync();
+
+                _serilog.LogInformation($"INSERT INTO UserAuthen | Obj : {JsonConvert.SerializeObject(newUserAuth)}");
+                _serilog.LogInformation($"INSERT INTO UserInfo | Obj : {JsonConvert.SerializeObject(newUserInfo)}");
+                _serilog.LogInformation($"INSERT INTO UserAuthorize | Obj : {JsonConvert.SerializeObject(newUserAthorizeList)}");
 
                 return Ok(new
                 {

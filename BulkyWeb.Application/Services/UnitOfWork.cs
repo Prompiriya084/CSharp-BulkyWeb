@@ -17,6 +17,7 @@ namespace BulkyWeb.Application.Services
         public ICategoryRepository Category { get; set; }
         public IUserAuthenRepository UserAuthen { get; set; }
         public IUserInfoRepository UserInfo { get; set; }
+        public IUserAuthorizeRepository UserAuthorize { get; set; }
         public UnitOfWork(ApplicationDbContext dbContext) 
         {
             _dbContext = dbContext;
@@ -24,6 +25,7 @@ namespace BulkyWeb.Application.Services
             Category = new CategoryRepository(dbContext);
             UserAuthen = new UserAthenRepository(dbContext);
             UserInfo = new UserInfoRepository(dbContext);
+            UserAuthorize = new UserAuthorizeRepository(dbContext);
         }
         public async Task SaveAsync()
         {

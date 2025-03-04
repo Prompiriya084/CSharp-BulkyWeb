@@ -19,7 +19,6 @@ namespace BulkyWeb.Domain.Models
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public DateTime? DeletedDate {  get; set; }
-
         // 🔹 Foreign Key for Category
         [ForeignKey("UserAuthen")]
         public int UserAuthenId { get; set; }

@@ -13,6 +13,7 @@ namespace BulkyWeb.Application.Services
         ICategoryRepository Category { get; }
         IUserAuthenRepository UserAuthen { get; }
         IUserInfoRepository UserInfo { get; }
+        IUserAuthorizeRepository UserAuthorize { get; }
         Task SaveAsync();
     }
 }

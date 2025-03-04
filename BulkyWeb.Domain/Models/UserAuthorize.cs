@@ -13,7 +13,6 @@ namespace BulkyWeb.Domain.Models
         //[ForeignKey("UserInfo")]
         public int UserInfoId { get; set; }
         public UserInfo UserInfo { get; set; }
-
         //[ForeignKey("Authorization")]
         public string AuthorizationId { get; set; }
         public Authorization Authorization { get; set; }
