@@ -15,11 +15,15 @@ namespace BulkyWeb.Application.Services
         private readonly ApplicationDbContext _dbContext;
         public IProductRepository Product { get; set; }
         public ICategoryRepository Category { get; set; }
+        public IUserAuthenRepository UserAuthen { get; set; }
+        public IUserInfoRepository UserInfo { get; set; }
         public UnitOfWork(ApplicationDbContext dbContext) 
         {
             _dbContext = dbContext;
             Product = new ProductRepository(dbContext);
             Category = new CategoryRepository(dbContext);
+            UserAuthen = new UserAthenRepository(dbContext);
+            UserInfo = new UserInfoRepository(dbContext);
         }
         public async Task SaveAsync()
         {

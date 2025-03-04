@@ -168,7 +168,7 @@ namespace BulkyWeb.ApiControllers
         {
             try
             {
-                var category = _unitOfWork.Category.Get(x => x.Id==id);
+                var category = _unitOfWork.Category.Get(x => x.Id == id);
                 if (category == null)
                 {
                     return NotFound();

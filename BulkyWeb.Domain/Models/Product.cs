@@ -20,7 +20,6 @@ namespace BulkyWeb.Domain.Models
 
         // 🔹 Foreign Key for Category
         public int CategoryId { get; set; }
-
         // 🔹 Navigation Property
         public Category Category { get; set; }
     }

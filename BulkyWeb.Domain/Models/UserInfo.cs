@@ -8,19 +8,22 @@ using System.Threading.Tasks;
 
 namespace BulkyWeb.Domain.Models
 {
-    [Table("Category", Schema = "dbo")]
-    //[PrimaryKey(nameof(DCSR_ID))]
-    public class Category
+    public class UserInfo
     {
         [Key]
         public int Id { get; set; }
-        [Required(ErrorMessage = "Please enter a name.")]
-        [StringLength(200, ErrorMessage = "Feild name is required 200 digits.")]
         public string Name { get; set; }
+        public string Surname { get; set; }
+        //public string Role {  get; set; }
+        public string Position { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
-        public DateTime? DeletedDate { get; set; }
-        // Navigation Property (One-to-Many Relationship)
-        public ICollection<Product> Products { get; set; }
+        public DateTime? DeletedDate {  get; set; }
+
+        // 🔹 Foreign Key for Category
+        [ForeignKey("UserAuthen")]
+        public int UserAuthenId { get; set; }
+        // 🔹 Navigation Property
+        public UserAuthen UserAuthen { get; set; }
     }
 }
