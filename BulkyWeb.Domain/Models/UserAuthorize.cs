@@ -10,13 +10,12 @@ namespace BulkyWeb.Domain.Models
 {
     public class UserAuthorize
     {
-        [Key]
-        public int Id { get; set; }
-        [ForeignKey("UserAuthen")]
-        public int UserAuthenId { get; set; }
-        public UserAuthen UserAuthen { get; set; }
-        [ForeignKey("Authorization")]
-        public int AuthorizationId { get; set; }
+        //[ForeignKey("UserInfo")]
+        public int UserInfoId { get; set; }
+        public UserInfo UserInfo { get; set; }
+
+        //[ForeignKey("Authorization")]
+        public string AuthorizationId { get; set; }
         public Authorization Authorization { get; set; }
     }
 }

@@ -25,5 +25,10 @@ namespace BulkyWeb.Domain.Models
         public int UserAuthenId { get; set; }
         // 🔹 Navigation Property
         public UserAuthen UserAuthen { get; set; }
+        //// 🔹 Foreign Key for Category
+        //[ForeignKey("UserAuthorize")]
+        //public int UserAuthorizeId { get; set; }
+        // 🔹 Navigation Property
+        public ICollection<UserAuthorize> UserAuthorize { get; set; }
     }
 }

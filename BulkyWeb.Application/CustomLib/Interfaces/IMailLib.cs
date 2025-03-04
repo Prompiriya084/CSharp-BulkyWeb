@@ -8,6 +8,6 @@ namespace BulkyWeb.Application.CustomLib.Interfaces
 {
     public interface IMailLib
     {
-        Task SendEmailAsync(string fromEmail, string toEmail, string subject, string message)
+        Task SendEmailAsync(string fromEmail, string toEmail, string subject, string message);
     }
 }

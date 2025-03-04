@@ -10,9 +10,9 @@ namespace BulkyWeb.Domain.Models
     public class Authorization
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         // Many-to-Many Relationship with UserAuth
-        public ICollection<UserAuthorize> UserAuthorizes { get; set; } = new List<UserAuthorize>();
+        public ICollection<UserAuthorize> UserAuthorizes { get; set; }
     }
 }

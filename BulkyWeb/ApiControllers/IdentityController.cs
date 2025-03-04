@@ -75,6 +75,7 @@ namespace BulkyWeb.ApiControllers
             _serilog = serilog;
             _ctoLib = ctoLib;
         }
+        [HttpPost]
         public async Task<IActionResult> SignIn([FromBody] SignInRequest request)
         {
             try
@@ -86,6 +87,10 @@ namespace BulkyWeb.ApiControllers
                     throw new Exception("email or password is incorrect.");
                 }
                 
+                var userInfo = _unitOfWork.UserInfo.Get(x => x.UserAuthen.Email == request.email);
+                var userAuthorize = userInfo.UserAuthorize.Select(x => x.AuthorizationId).ToList();
+
+                await CreateCookies(userInfo, userAuthorize);
                 return Ok(new
                 {
                     message = "login successful."
@@ -93,6 +98,27 @@ namespace BulkyWeb.ApiControllers
             }
             catch (Exception ex)
             {
+                _serilog.LogError(ex.Message);
+                return StatusCode(500, new
+                {
+                    message = ex.Message,
+                });
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        {
+            try
+            {
+
+                return Ok(new
+                {
+                    message = "Register successful."
+                });
+            }
+            catch (Exception ex)
+            {
+
                 _serilog.LogError(ex.Message);
                 return StatusCode(500, new
                 {
