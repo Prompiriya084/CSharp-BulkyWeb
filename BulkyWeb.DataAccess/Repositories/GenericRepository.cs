@@ -70,7 +70,11 @@ namespace BulkyWeb.Infrastructure.Repositories
                 {
                     query = _dbSet.AsNoTracking();
                 }
-                query = query.Where(filter);
+
+                if (filter != null)
+                {
+                    query = query.Where(filter);
+                }
 
                 if (!string.IsNullOrEmpty(inclueProperties))
                 {
