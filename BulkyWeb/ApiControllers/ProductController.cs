@@ -2,6 +2,7 @@
 using BulkyWeb.Domain.Models;
 using BulkyWeb.Models.ViewModels;
 using BulkyWeb.Services.Serilog;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -10,6 +11,7 @@ namespace BulkyWeb.ApiControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;

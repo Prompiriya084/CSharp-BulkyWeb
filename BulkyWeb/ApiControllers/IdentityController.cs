@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using BulkyWeb.Application.CustomLib.Interfaces;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BulkyWeb.ApiControllers
 {
@@ -106,6 +107,7 @@ namespace BulkyWeb.ApiControllers
             }
         }
         [HttpPost]
+        [Authorize(Policy = "Admin")] //instead Role
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             try

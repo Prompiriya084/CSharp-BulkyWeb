@@ -1,6 +1,7 @@
 using BulkyWeb.Application.Services;
 using BulkyWeb.Infrastructure.Data;
 using BulkyWeb.Services.Serilog;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -12,6 +13,21 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
+{
+    option.LoginPath = "/Identity/SignIn";
+    option.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    option.AccessDeniedPath = "/NotFound/Index";
+});
+//builder.Services.AddHttpClient();
+builder.Services.AddAuthorization(options =>
+{
+    //foreach (var each in authorizeList)
+    //{
+    //    options.AddPolicy(each, policy => policy.RequireClaim("Authorize", each));
+    //}
+    options.AddPolicy("IT", policy => policy.RequireClaim("Department", "IT"));
+});
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<HttpContextAccessor>();
