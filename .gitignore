@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/BulkyWeb/bin/Debug/net7.0
+/BulkyWeb/obj
+/BulkyWeb.Application/bin/Debug/net7.0
+/BulkyWeb.Application/obj
+/BulkyWeb.DataAccess/bin/Debug/net7.0
+/BulkyWeb.DataAccess/obj
+/BulkyWeb.Domain/bin/Debug/net7.0
+/BulkyWeb.Domain/obj
+/DataAccess/obj
+/obj
