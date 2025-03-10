@@ -1,0 +1,154 @@
+﻿.loader {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   /* background-color: #f7f9fb;*/
+    transition: opacity 0.75s, visibility 0.75s;
+    z-index: 1090;
+    background-color: rgba(0,0,0,.4);
+}
+.loader-hidden{
+    opacity:0;
+    visibility: hidden;
+}
+.loader-style{
+    display:block;
+}
+.loader-text{
+    color:aliceblue;
+}
+.loader-spinner {
+    content: "";
+    border: 15px solid #fff;
+    border-top-color: #f00;
+    /*border-top-color: #910000;*/
+    /*border-left-color: rgba(0,0,0, 0.8);
+    border-right-color: rgba(0,0,0,0.8);
+    border-bottom-color: red;*/
+    opacity: 1;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: loading 0.75s ease infinite;
+}
+.spinner-center{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+@keyframes loading {
+    from{ transform: rotate(0turn)}
+    to{transform: rotate(1turn)}
+}
+@keyframes showloading{
+    from {
+        opacity:0;
+        visibility: hidden
+    }
+
+    to {
+        opacity: 1;
+        visibility: inherit;
+    }
+}
+.preloader-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+.preloader {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    background: #181818;
+    transition: opacity 0.75s, visibility 0.75s;
+}
+
+    .preloader .preloader-before {
+        top: 0;
+    }
+
+    .preloader .preloader-after {
+        bottom: 0;
+    }
+
+    .preloader .percent {
+        position: absolute;
+        font-weight: 700;
+        letter-spacing: 3px;
+        font-size: 0;
+        color: #E60012;
+        top: -25px;
+    }
+    .preloader .title {
+        /*width: -webkit-max-content;
+        width: -moz-max-content;*/
+        width: max-content;
+        line-height: 0.9;
+        letter-spacing: 10px;
+    }
+        .preloader .title .text-strok {
+            position:absolute;
+            font-size:100px;
+            font-weight:700;
+            color: transparent;
+            -webkit-text-stroke: 2px #fff;
+        }
+        /*.preloader:active .title .text-strok{
+            color:#fff;
+            transition:all 1.5s;
+        }*/
+
+    .preloader .title .text-fill {
+        height:0;
+        bottom:-100px;
+        font-size: 100px;
+        font-weight: 700;
+        color: transparent;
+        position: relative;
+        /*left: 0;*/
+        /*clip-path: inset(100.09% 0% 0% 0%);*/
+    }
+    .preloader:active .title .text-fill {
+        height: 100%;
+        bottom: 0;
+        font-size: 100px;
+        font-weight: 700;
+        color: #fff;
+        position: relative;
+        transition: all 2s;
+        /*left: 0;*/
+        /*clip-path: inset(100.09% 0% 0% 0%);*/
+    }
+
+    .preloader .preloader-bar {
+        position: absolute;
+        width: 100%;
+        height: 5px;
+        top: 0;
+        background: #1d1d1d;
+    }
+
+        .preloader .preloader-bar .preloader-progress {
+            width: 0;
+            height: 100%;
+            background: #E60012;
+        }
+        .preloader:active .preloader-bar .preloader-progress {
+            width: 100%;
+            transition: all 2s;
+        }
+
+
+
+
+
