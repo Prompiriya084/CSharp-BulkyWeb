@@ -1,3 +1,5 @@
+using BulkyWeb.Application.CustomLib;
+using BulkyWeb.Application.CustomLib.Interfaces;
 using BulkyWeb.Application.Services;
 using BulkyWeb.Infrastructure.Data;
 using BulkyWeb.Services.Serilog;
@@ -31,10 +33,12 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<HttpContextAccessor>();
+
 //Register Repositories
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 //Register Serilog Service
 builder.Services.AddScoped<_ISerilog, _Serilog>();
+builder.Services.AddScoped<ICustomLib, CustomLib>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

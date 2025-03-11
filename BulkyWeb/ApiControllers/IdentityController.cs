@@ -82,6 +82,14 @@ namespace BulkyWeb.ApiControllers
         {
             try
             {
+                var errMessage = _ctoLib.Validator.Passowrd(request.password);
+                if (!string.IsNullOrWhiteSpace(errMessage))
+                {
+                    return BadRequest(new
+                    {
+                        message = errMessage
+                    });
+                }
                 //var userAuth = _unitOfWork.UserAuthen.Get(x => x.Email == request.email);
                 //var verifyPassword = BCrypt.Net.BCrypt.Verify(request.password, userAuth.PasswordHashed);
                 //if (userAuth != null || !verifyPassword)

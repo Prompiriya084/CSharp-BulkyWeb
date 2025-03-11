@@ -28,6 +28,7 @@ namespace BulkyWeb.Domain.Models
         //[ForeignKey("UserAuthorize")]
         //public int UserAuthorizeId { get; set; }
         // 🔹 Navigation Property
-        public ICollection<UserAuthorize> UserAuthorize { get; set; }
+        [NotMapped]
+        public ICollection<UserAuthorize> UserAuthorize { get; set; } = new List<UserAuthorize>();
     }
 }

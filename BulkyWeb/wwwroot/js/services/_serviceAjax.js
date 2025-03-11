@@ -36,23 +36,32 @@ export class ServiceAjax {
                     });
                 }
                 else {
-                    if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
-                        var errorMessage = "";
-                        for (var key in err.responseJSON.errors) {
-                            errorMessage += result.responseJSON.errors[key][0];
-                        }
-                        var errorResponse = {
-                            responseJSON: {
-                                message: errorMessage,
-                                statusText: err.statusText,
-                                title: (err.status == 400) ? "warning" : "error"
+                    var errorResponse;
+                    var errorMessage = "";
+                    if (err.responseJSON !== undefined) {
+                        //error message from mapping data to model
+                        if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
+                            for (var key in err.responseJSON.errors) {
+                                console.log(err.responseJSON.errors[key]);
+                                errorMessage += err.responseJSON.errors[key][0];
                             }
                         }
-                        reject(errorResponse);
+                        else {
+                            errorMessage = err.responseJSON.message //error message from manual sending 
+                        }
                     }
                     else {
-                        reject(err);
+                        errorMessage = err.reponseText // internal server eror
                     }
+                    errorResponse = {
+                        responseJSON: {
+                            message: errorMessage,
+                            statusText: err.statusText,
+                            status: err.status,
+                            title: (err.status == 400) ? "warning" : "error"
+                        }
+                    }
+                    reject(errorResponse);
                 }
             });
         });
@@ -75,32 +84,33 @@ export class ServiceAjax {
                         text: "Cookies has expired. Please login again.",
                         redirect: "Identity/login"
                     });
-                    //oAlertNoLoading('error', res.statusText, "Cookies has expied. Please login again.", 'Identity/login');
-                }
-                
+                }                
                 else {
-                    
-                    if (err.responseText !== undefined) {
-                        reject(err);
-                    }
-                    else if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
-                        var errorMessage = "";
-                        for (var key in err.responseJSON.errors) {
-                            errorMessage += result.responseJSON.errors[key][0];
-                        }
-                        var errorResponse = {
-                            responseJSON: {
-                                message: errorMessage,
-                                statusText: err.statusText,
-                                title: (err.status == 400) ? "warning" : "error"
+                    var errorResponse;
+                    var errorMessage = "";
+                    if (err.responseJSON !== undefined) {
+                        if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
+                            for (var key in err.responseJSON.errors) {
+                                console.log(err.responseJSON.errors[key]);
+                                errorMessage += err.responseJSON.errors[key][0];
                             }
                         }
-                        reject(errorResponse);
-                    }
+                        else {
+                            errorMessage = err.responseJSON.message
+                        }
+                    }                    
                     else {
-                        reject(err);
+                        errorMessage = err.reponseText
                     }
-                    reject(err);
+                    errorResponse = {
+                        responseJSON: {
+                            message: errorMessage,
+                            statusText: err.statusText,
+                            status: err.status,
+                            title: (err.status == 400) ? "warning" : "error"
+                        }
+                    }
+                    reject(errorResponse);
                 }
             });
         });
@@ -126,23 +136,31 @@ export class ServiceAjax {
                     //oAlertNoLoading('error', res.statusText, "Cookies has expied. Please login again.", 'Identity/login');
                 }
                 else {
-                    if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
-                        var errorMessage = "";
-                        for (var key in err.responseJSON.errors) {
-                            errorMessage += result.responseJSON.errors[key][0];
-                        }
-                        var errorResponse = {
-                            responseJSON: {
-                                message: errorMessage,
-                                statusText: err.statusText,
-                                title: (err.status == 400) ? "warning" : "error"
+                    var errorResponse;
+                    var errorMessage = "";
+                    if (err.responseJSON !== undefined) {
+                        if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
+                            for (var key in err.responseJSON.errors) {
+                                console.log(err.responseJSON.errors[key]);
+                                errorMessage += err.responseJSON.errors[key][0];
                             }
                         }
-                        reject(errorResponse);
+                        else {
+                            errorMessage = err.responseJSON.message
+                        }
                     }
                     else {
-                        reject(err);
+                        errorMessage = err.reponseText
                     }
+                    errorResponse = {
+                        responseJSON: {
+                            message: errorMessage,
+                            statusText: err.statusText,
+                            status: err.status,
+                            title: (err.status == 400) ? "warning" : "error"
+                        }
+                    }
+                    reject(errorResponse);
                 }
             });
         });
@@ -167,23 +185,31 @@ export class ServiceAjax {
                     //oAlertNoLoading('error', res.statusText, "Cookies has expied. Please login again.", 'Identity/login');
                 }
                 else {
-                    if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
-                        var errorMessage = "";
-                        for (var key in err.responseJSON.errors) {
-                            errorMessage += result.responseJSON.errors[key][0];
-                        }
-                        var errorResponse = {
-                            responseJSON: {
-                                message: errorMessage,
-                                statusText: err.statusText,
-                                title: (err.status == 400) ? "warning" : "error"
+                    var errorResponse;
+                    var errorMessage = "";
+                    if (err.responseJSON !== undefined) {
+                        if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
+                            for (var key in err.responseJSON.errors) {
+                                console.log(err.responseJSON.errors[key]);
+                                errorMessage += err.responseJSON.errors[key][0];
                             }
                         }
-                        reject(errorResponse);
+                        else {
+                            errorMessage = err.responseJSON.message
+                        }
                     }
                     else {
-                        reject(err);
+                        errorMessage = err.reponseText
                     }
+                    errorResponse = {
+                        responseJSON: {
+                            message: errorMessage,
+                            statusText: err.statusText,
+                            status: err.status,
+                            title: (err.status == 400) ? "warning" : "error"
+                        }
+                    }
+                    reject(errorResponse);
                 }
             });
         });
@@ -209,23 +235,31 @@ export class ServiceAjax {
                     //oAlertNoLoading('error', res.statusText, "Cookies has expied. Please login again.", 'Identity/login');
                 }
                 else {
-                    if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
-                        var errorMessage = "";
-                        for (var key in err.responseJSON.errors) {
-                            errorMessage += result.responseJSON.errors[key][0];
-                        }
-                        var errorResponse = {
-                            responseJSON: {
-                                message: errorMessage,
-                                statusText: err.statusText,
-                                title: (err.status == 400) ? "warning" : "error"
+                    var errorResponse;
+                    var errorMessage = "";
+                    if (err.responseJSON !== undefined) {
+                        if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
+                            for (var key in err.responseJSON.errors) {
+                                console.log(err.responseJSON.errors[key]);
+                                errorMessage += err.responseJSON.errors[key][0];
                             }
                         }
-                        reject(errorResponse);
+                        else {
+                            errorMessage = err.responseJSON.message
+                        }
                     }
                     else {
-                        reject(err);
+                        errorMessage = err.reponseText
                     }
+                    errorResponse = {
+                        responseJSON: {
+                            message: errorMessage,
+                            statusText: err.statusText,
+                            status: err.status,
+                            title: (err.status == 400) ? "warning" : "error"
+                        }
+                    }
+                    reject(errorResponse);
                 }
             });
         });
