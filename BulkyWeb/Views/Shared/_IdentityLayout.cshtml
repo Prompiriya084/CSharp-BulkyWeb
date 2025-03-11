@@ -8,10 +8,10 @@
     @* <title>Account Verification</title> *@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="~/css/site.css" rel="stylesheet" />
-    <link href="~/css/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link href="~/fontawesome/all.min.css" rel="stylesheet" />
     <link href="~/sweetalert/sweetalert.css" rel="stylesheet" />
     <link href="~/css/spinner.css" rel="stylesheet" />
-    <link href="~/css/IdentityLayout.css" rel="stylesheet" />
+    <link href="~/css/_identitylayout.css" rel="stylesheet" />
     <link href="~/css/wave_background.css" rel="stylesheet" />
     @await RenderSectionAsync("Links", required: false)
 </head>
@@ -94,16 +94,17 @@
         <div class="bubble"></div>
         <div class="bubble"></div>
     </div> *@
-    <div class="Content">
+    <div class="content">
         @* <div class="context mt-2">
         <h4>Hino Motors Manufacturing (Thailand) Ltd.</h4>
         </div> *@
-        <div class="Identity-Content">
+        <div class="identity-content">
             @RenderBody()
         </div>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/fontawesome/js/all.min.js"></script>
     <script src="~/sweetalert/sweetalert.js"></script>
     <script src="~/js/_formvalidator.js"></script>
     <script src="~/js/_identitylayout.js"></script>

@@ -21,5 +21,16 @@ namespace BulkyWeb.Application.CustomLib
 
             return errMessage;
         }
+        public string Email(string email)
+        {
+            string errMessage = null;
+            string pattern = @"/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
+            if (!Regex.IsMatch(email, pattern))
+            {
+                errMessage = "Email format is invalid.";
+            }
+
+            return errMessage;
+        }
     }
 }

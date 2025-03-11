@@ -10,6 +10,7 @@ using System.Security.Claims;
 using BulkyWeb.Application.CustomLib.Interfaces;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
+using Azure.Core;
 
 namespace BulkyWeb.ApiControllers
 {
@@ -20,6 +21,7 @@ namespace BulkyWeb.ApiControllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly _ISerilog _serilog;
         private readonly ICustomLib _ctoLib;
+        private readonly IHttpContextAccessor _contextAccessor;
         private async Task CreateCookies(UserInfo user, List<string> authorization)
         {
             try
@@ -71,23 +73,34 @@ namespace BulkyWeb.ApiControllers
         }
         public IdentityController(IUnitOfWork unitOfWork
             , _ISerilog serilog
-            , ICustomLib ctoLib) 
+            , ICustomLib ctoLib
+            , IHttpContextAccessor httpContextAccessor) 
         {
             _unitOfWork = unitOfWork;
             _serilog = serilog;
             _ctoLib = ctoLib;
+
+            _contextAccessor = httpContextAccessor;
         }
         [HttpPost]
         public async Task<IActionResult> SignIn([FromBody] SignInRequest request)
         {
             try
             {
-                var errMessage = _ctoLib.Validator.Passowrd(request.password);
-                if (!string.IsNullOrWhiteSpace(errMessage))
+                var errEmailMessage = _ctoLib.Validator.Email(request.email);
+                if (!string.IsNullOrWhiteSpace(errEmailMessage))
                 {
                     return BadRequest(new
                     {
-                        message = errMessage
+                        message = errEmailMessage
+                    });
+                }
+                var errPasswordMessage = _ctoLib.Validator.Passowrd(request.password);
+                if (!string.IsNullOrWhiteSpace(errPasswordMessage))
+                {
+                    return BadRequest(new
+                    {
+                        message = errPasswordMessage
                     });
                 }
                 //var userAuth = _unitOfWork.UserAuthen.Get(x => x.Email == request.email);
@@ -184,6 +197,45 @@ namespace BulkyWeb.ApiControllers
             {
 
                 _serilog.LogError(ex.Message);
+                return StatusCode(500, new
+                {
+                    message = ex.Message,
+                });
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> ForgetPassword([FromBody] string email)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return BadRequest(new
+                    {
+                        message = "email is required."
+                    });
+                }
+
+                var errEmailMessage = _ctoLib.Validator.Email(email);
+                if (!string.IsNullOrWhiteSpace(errEmailMessage))
+                {
+                    return BadRequest(new
+                    {
+                        message = errEmailMessage
+                    });
+                }
+
+                await _ctoLib.Mail.SendEmailAsync("test@email.com", email, "Testtttttt subjectt", "test message");
+                var userClaimName = _contextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Name)?.Value;
+                _serilog.LogInformation($"{userClaimName} (test@email.com) send email to {email}");
+                
+                return Ok(new
+                {
+                    message = "Send email succussfully."
+                });
+            }
+            catch (Exception ex)
+            {
                 return StatusCode(500, new
                 {
                     message = ex.Message,

@@ -20,3 +20,6 @@ html {
 body {
   margin-bottom: 60px;
 }
+.bottom-divider {
+    margin: 0 1rem 1rem;
+}

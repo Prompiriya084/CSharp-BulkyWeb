@@ -2,7 +2,7 @@
     constructor() {
         this.spinner = document.querySelector(".loader");
     }
-    Innitial() {
+    Initial() {
         window.addEventListener("load", () => {
             this.spinner.classList.add("loader-hidden");
         });

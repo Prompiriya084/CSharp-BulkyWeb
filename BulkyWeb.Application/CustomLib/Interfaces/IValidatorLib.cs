@@ -10,5 +10,6 @@ namespace BulkyWeb.Application.CustomLib.Interfaces
     public interface IValidatorLib
     {
         string Passowrd(string password);
+        string Email(string email);
     }
 }

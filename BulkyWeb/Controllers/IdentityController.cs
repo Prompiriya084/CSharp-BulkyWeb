@@ -9,5 +9,9 @@ namespace BulkyWeb.Controllers
         {
             return View();
         }
+        public IActionResult ForgetPassword()
+        {
+            return View();
+        }
     }
 }

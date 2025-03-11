@@ -18,10 +18,10 @@ export class LibAjax {
                 dataType: "json",
                 headers: this.#ajaxHeader,
                 data: data,
-                success: function (result) {
+                success: function (res) {
                     //response(result);
                 },
-                error: function (result) {
+                error: function (err) {
                     //console.log(res);
                     //reject(result)
                 }
@@ -36,10 +36,11 @@ export class LibAjax {
             dataType: "json",
             headers: this.#ajaxHeader,
             data: (JSON.stringify(data)),
-            success: function (result) {
+            success: function (res) {
                 //response(result);
+                //console.log(result);
             },
-            error: function (result) {
+            error: function (err) {
                 //reject(result);
                 //console.log(result);
             }
@@ -69,10 +70,10 @@ export class LibAjax {
             dataType: "json",
             headers: this.#ajaxHeader,
             data: (JSON.stringify(data)),
-            success: function (result) {
+            success: function (res) {
                 //response(result);
             },
-            error: function (result) {
+            error: function (err) {
                 //reject(result);
             }
         });
@@ -84,10 +85,10 @@ export class LibAjax {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             headers: this.#ajaxHeader,
-            success: function (result) {
+            success: function (res) {
                 //response(result);
             },
-            error: function (result) {
+            error: function (err) {
                 //reject(result);
             }
         });
@@ -103,10 +104,10 @@ export class LibAjax {
             data: formdata,
             dataType: "json",
             enctype: 'multipart/form-data',
-            success: function (result) {
+            success: function (res) {
                 //response(result);
             },
-            error: function (result) {
+            error: function (err) {
                 //reject(result);
             }
         });

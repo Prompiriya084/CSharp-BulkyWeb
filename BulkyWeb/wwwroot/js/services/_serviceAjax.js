@@ -221,7 +221,7 @@ export class ServiceAjax {
                         text: "Cookies has expired. Please login again.",
                         redirect: "Identity/login"
                     });
-                    //oAlertNoLoading('error', res.statusText, "Cookies has expied. Please login again.", 'Identity/login');
+                    
                 }
                 else {
                     var errorResponse;
