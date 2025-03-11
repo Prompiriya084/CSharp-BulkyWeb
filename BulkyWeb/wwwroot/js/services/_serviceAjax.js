@@ -18,7 +18,6 @@ export class ServiceAjax {
     }
     async GetAsync({ url = null, data = null, spinner = false }) {
         if (spinner) this.#spinner.Show();
-        //console.log(this.ajaxUrl + url);
         return await new Promise((response, reject) => {
             this.#libAjax.GetAsync({
                 url: this.#url + url,
@@ -42,7 +41,6 @@ export class ServiceAjax {
                         //error message from mapping data to model
                         if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
                             for (var key in err.responseJSON.errors) {
-                                console.log(err.responseJSON.errors[key]);
                                 errorMessage += err.responseJSON.errors[key][0];
                             }
                         }
@@ -68,7 +66,6 @@ export class ServiceAjax {
     }
     async PostAsync({ url = null, data = null, spinner = false }) {
         if (spinner) this.#spinner.Show();
-        //console.log(this.ajaxUrl + url);
         return await new Promise((response, reject) => {
             this.#libAjax.PostAsync({
                 url: this.#url + url,
@@ -91,7 +88,6 @@ export class ServiceAjax {
                     if (err.responseJSON !== undefined) {
                         if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
                             for (var key in err.responseJSON.errors) {
-                                console.log(err.responseJSON.errors[key]);
                                 errorMessage += err.responseJSON.errors[key][0];
                             }
                         }
@@ -117,7 +113,6 @@ export class ServiceAjax {
     }
     async PutAsync({ url = null, data = null, spinner = false }) {
         if (spinner) this.#spinner.Show();
-        //console.log(this.ajaxUrl + url);
         return await new Promise((response, reject) => {
             this.#libAjax.PutAsync({
                 url: this.#url + url,
@@ -132,8 +127,7 @@ export class ServiceAjax {
                         title: 'Authentication fail',
                         text: "Cookies has expired. Please login again.",
                         redirect: "Identity/login"
-                    });
-                    //oAlertNoLoading('error', res.statusText, "Cookies has expied. Please login again.", 'Identity/login');
+                    });                    
                 }
                 else {
                     var errorResponse;
@@ -141,7 +135,6 @@ export class ServiceAjax {
                     if (err.responseJSON !== undefined) {
                         if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
                             for (var key in err.responseJSON.errors) {
-                                console.log(err.responseJSON.errors[key]);
                                 errorMessage += err.responseJSON.errors[key][0];
                             }
                         }
@@ -167,7 +160,6 @@ export class ServiceAjax {
     }
     async DeleteAsync({ url = null, spinner = false }) {
         if (spinner) this.#spinner.Show();
-        //console.log(this.ajaxUrl + url);
         return await new Promise((response, reject) => {
             this.#libAjax.DeleteAsync({
                 url: this.#url + url,
@@ -182,7 +174,6 @@ export class ServiceAjax {
                         text: "Cookies has expired. Please login again.",
                         redirect: "Identity/login"
                     });
-                    //oAlertNoLoading('error', res.statusText, "Cookies has expied. Please login again.", 'Identity/login');
                 }
                 else {
                     var errorResponse;
@@ -190,7 +181,6 @@ export class ServiceAjax {
                     if (err.responseJSON !== undefined) {
                         if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
                             for (var key in err.responseJSON.errors) {
-                                console.log(err.responseJSON.errors[key]);
                                 errorMessage += err.responseJSON.errors[key][0];
                             }
                         }
@@ -216,7 +206,6 @@ export class ServiceAjax {
     }
     async PostFormAsync({ url = null, formdata = null, spinner = false }) {
         if (spinner) this.#spinner.Show();
-        //console.log(this.ajaxUrl + url);
         return await new Promise((response, reject) => {
             this.#libAjax.PostFormAsync({
                 url: this.#url + url,
@@ -240,7 +229,6 @@ export class ServiceAjax {
                     if (err.responseJSON !== undefined) {
                         if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
                             for (var key in err.responseJSON.errors) {
-                                console.log(err.responseJSON.errors[key]);
                                 errorMessage += err.responseJSON.errors[key][0];
                             }
                         }

@@ -4,7 +4,6 @@ const serviceAjax = new ServiceAjax();
 const libSweetAlert = new SweetAlert();
 $(document).ready(async () => {
     $("button[type=submit]").on("click", async () => {
-        console.log("submit!!!!");
         let email = $("#inpEmail").val();
         let password = $("#inpPassword").val()
         serviceAjax.PostAsync({
@@ -14,13 +13,11 @@ $(document).ready(async () => {
                 password: password
             }
         }).then(async (res) => {
-            console.log(res);
             libSweetAlert.Initial({
                 icon: "success",
                 title: "Sucess",
             });
         }).catch(async (err) => {
-            console.log(err);
             libSweetAlert.Initial({
                 icon: err.responseJSON.title,
                 title: err.responseJSON.statusText,
