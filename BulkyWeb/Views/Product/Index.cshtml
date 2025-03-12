@@ -1,0 +1,51 @@
+﻿<div class="modal fade" id="mdAddProduct" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="productModalLabel">Add Product: </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="needs-validation" novalidate>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Name : </label>
+                        <input class="form-control" type="text" id="inpProductName" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Price : </label>
+                        <input class="form-control" type="number" id="inpProductPrice" placeholder="xxxx.xx" required />
+                        @* <div class="form-text">We'll never share your email with anyone else.</div> *@
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Category : </label>
+                        <select class="form-control" id="sltCategory" required>
+                            @* <option>Open this to select</option> *@
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="btnAddProduct">Submit</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <header>
+            <h4>Product: </h4>
+        </header>
+        <div class="d-flex flex-row flex-wrap">
+            <button class="btn btn-success shadow-sm m-1" type="button" data-bs-toggle="modal" data-bs-target="#mdAddProduct">Add</button>
+            <button class="btn btn-primary shadow-sm m-1">Test</button>          
+        </div>
+        <div class="data-table">
+            
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="module" src="~/js/product/product.js"></script>
+}

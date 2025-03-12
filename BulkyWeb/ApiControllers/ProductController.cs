@@ -1,4 +1,5 @@
-﻿using BulkyWeb.Application.Services;
+﻿using BulkyWeb.Application.CustomLib.Interfaces;
+using BulkyWeb.Application.Services;
 using BulkyWeb.Domain.Models;
 using BulkyWeb.Models.ViewModels;
 using BulkyWeb.Services.Serilog;
@@ -11,15 +12,17 @@ namespace BulkyWeb.ApiControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ProductController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly _ISerilog _serilog;
-        public ProductController(IUnitOfWork unitOfWork, _ISerilog serilog) 
+        private readonly ICustomLib _ctoLib;
+        public ProductController(IUnitOfWork unitOfWork, _ISerilog serilog, ICustomLib customLib) 
         {
             _unitOfWork = unitOfWork;
             _serilog = serilog;
+            _ctoLib = customLib;
         }
         [HttpGet]
         public async Task<IActionResult> GetById(string id)
@@ -208,6 +211,25 @@ namespace BulkyWeb.ApiControllers
             }
             catch (Exception ex)
             {
+                return StatusCode(500, new
+                {
+                    message = ex.Message,
+                });
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> SaveFiles([FromForm] FilesRequest request)
+        {
+            try
+            {
+                return Ok(new
+                {
+                    message = "saving successful."
+                });
+            }
+            catch (Exception ex)
+            {
+
                 return StatusCode(500, new
                 {
                     message = ex.Message,

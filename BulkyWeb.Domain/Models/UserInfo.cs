@@ -15,7 +15,7 @@ namespace BulkyWeb.Domain.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         //public string Role {  get; set; }
-        public string Position { get; set; }
+        //public string Position { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public DateTime? DeletedDate {  get; set; }

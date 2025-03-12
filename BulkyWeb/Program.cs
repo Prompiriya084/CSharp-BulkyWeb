@@ -21,14 +21,13 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     option.ExpireTimeSpan = TimeSpan.FromMinutes(30);
     option.AccessDeniedPath = "/NotFound/Index";
 });
-//builder.Services.AddHttpClient();
 builder.Services.AddAuthorization(options =>
 {
-    //foreach (var each in authorizeList)
+    //foreach (var eachItem in authorizeList)
     //{
-    //    options.AddPolicy(each, policy => policy.RequireClaim("Authorize", each));
+    //    options.AddPolicy(each, policy => policy.RequireClaim("Authorize", eachItem));
     //}
-    options.AddPolicy("IT", policy => policy.RequireClaim("Department", "IT"));
+    options.AddPolicy("Admin", policy => policy.RequireClaim("Department", "IT"));
 });
 
 builder.Services.AddHttpContextAccessor();
@@ -62,6 +61,12 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var app = builder.Build();
+
+//using (var scope = app.Services.CreateScope())
+//{
+//    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+//    dbContext.Database.Migrate(); // Auto-migrate at runtime
+//}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

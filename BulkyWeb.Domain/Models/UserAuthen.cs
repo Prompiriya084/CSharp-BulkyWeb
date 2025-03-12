@@ -15,6 +15,7 @@ namespace BulkyWeb.Domain.Models
         public string PasswordHashed { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+        public DateTime? DeletedDate { get; set; }
         // Many-to-Many Relationship with UserAuthorization (Roles)
         //public ICollection<UserAuthorize> UserAuthorizes { get; set; } = new List<UserAuthorize>();
         // One-to-One Relationship with UserInfo

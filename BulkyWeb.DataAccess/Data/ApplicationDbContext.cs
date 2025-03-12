@@ -26,12 +26,12 @@ namespace BulkyWeb.Infrastructure.Data
                 .WithOne(a => a.UserInfo) // Ensure there is a corresponding navigation property in UserAuthorize
                 .HasForeignKey(a => a.UserInfoId) // Ensure there is a foreign key in UserAuthorize
                 .OnDelete(DeleteBehavior.Cascade); // Optional: Define delete behavior
-            modelBuilder.Entity<UserInfo>().Ignore(u => u.UserAuthorize);
+            //modelBuilder.Entity<UserInfo>().Ignore(u => u.UserAuthorize);
             //// Many-to-Many Relationship: UserAuth <--> UserAuthorization
-            //modelBuilder.Entity<UserAuthorize>()
-            //    .HasOne(ua => ua.UserInfo)
-            //    .WithMany(u => u.UserAuthorizes)
-            //    .HasForeignKey(ua => ua.UserAuthenId);
+            modelBuilder.Entity<UserAuthorize>()
+                .HasOne(ua => ua.UserInfo)
+                .WithMany(u => u.UserAuthorize)
+                .HasForeignKey(ua => ua.UserInfoId);
 
             //modelBuilder.Entity<UserAuthorize>()
             //    .HasOne(ua => ua.Authorization)
@@ -59,7 +59,6 @@ namespace BulkyWeb.Infrastructure.Data
                 {
                     x.HasNoKey();
                 });
-
             //modelBuilder.Entity<Authorization>()
             //    .Property(x => x.Id)
             //    .ValueGeneratedOnAdd();

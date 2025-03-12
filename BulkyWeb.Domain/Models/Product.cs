@@ -10,7 +10,7 @@ namespace BulkyWeb.Domain.Models
         [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "Please enter a name.")]
-        [StringLength(200, ErrorMessage = "Feild name is required 200 digits.")]
+        [StringLength(50, ErrorMessage = "Feild name is required 50 digits.")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Please enter a price.")]
         public decimal Price { get; set; }

@@ -33,27 +33,13 @@ namespace BulkyWeb.ApiControllers
                         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                         new Claim(ClaimTypes.Name, user.Name + " " + user.Surname),
                         //new Claim(ClaimTypes.Role, user.Role.Trim()),
-                        new Claim("Position", user.Position),
+                        //new Claim("Position", user.Position),
+                        //new Claim("Authorize", authorization)
                     };
                 foreach (var item in authorization)
                 {
                     claims.Add(new Claim(ClaimTypes.Role, item.Trim()));
                 }
-                //var firstname = user.PrefixName2 + user.FirstName2.Substring(0, 1) + user.FirstName2.Substring(1).ToLower();
-                //var lastname = user.LastName2.Substring(0, 1) + user.LastName2.Substring(1).ToLower();
-                //var postion = user.PositionLevelName.Split(" ")[0].Trim();
-                //var userRole = (user.UnitCodeCode == "442100" || user.UnitCodeCode == "442300") ? "Admin" : postion;
-                //List<Claim> claims = new List<Claim>
-                //    {
-                //        //new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                //        //new(JwtRegisteredClaimNames.Sub, userRole.username),
-                //        new Claim(ClaimTypes.NameIdentifier, user.EmpCode),
-                //        new Claim(ClaimTypes.Name, $"{firstname} {lastname}"),
-                //        new Claim(ClaimTypes.Role, userRole),
-                //        //new Claim("Position", postion),
-                //        new Claim("PositionName", user.PositionNameEN),
-                //        new Claim("DeviceName", deviceName)
-                //    };
 
                 ClaimsIdentity claimsIdentity = new(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 AuthenticationProperties authenProp = new()
@@ -103,16 +89,22 @@ namespace BulkyWeb.ApiControllers
                         message = errPasswordMessage
                     });
                 }
-                //var userAuth = _unitOfWork.UserAuthen.Get(x => x.Email == request.email);
-                //var verifyPassword = BCrypt.Net.BCrypt.Verify(request.password, userAuth.PasswordHashed);
-                //if (userAuth != null || !verifyPassword)
-                //{
-                //    throw new Exception("email or password is incorrect.");
-                //}
-                
-                //var userInfo = _unitOfWork.UserInfo.Get(x => x.UserAuthen.Email == request.email);
+                var userAuth = _unitOfWork.UserAuthen.Get(x => x.Email == request.email);
+                var verifyPassword = BCrypt.Net.BCrypt.Verify(request.password, userAuth.PasswordHashed);
+                if (userAuth != null || !verifyPassword)
+                {
+                    throw new Exception("email or password is incorrect.");
+                }
 
-                //await CreateCookies(userInfo, userInfo.UserAuthorize.Select(x => x.AuthorizationId).ToList());
+                var userInfo = _unitOfWork.UserInfo.Get(x => x.UserAuthen.Email == request.email);
+                //var userInfo = new UserInfo()
+                //{
+                //    Id = 1,
+                //    Name = "Name1",
+                //    Surname = "Surname1",
+                //};
+
+                await CreateCookies(userInfo, userInfo.UserAuthorize.Select(x => x.AuthorizationId).ToList());
                 return Ok(new
                 {
                     message = "login successful."
@@ -166,7 +158,7 @@ namespace BulkyWeb.ApiControllers
                 newUserInfo.UserAuthenId = newUserAuth.Id;
                 newUserInfo.Name = request.Name;
                 newUserInfo.Surname = request.Surname;
-                newUserInfo.Position = "admin"; //Mock data for testing
+                //newUserInfo.Position = "admin"; //Mock data for testing
                 newUserInfo.CreatedDate = dateNow;
                 newUserInfo.UpdatedDate = dateNow;
 

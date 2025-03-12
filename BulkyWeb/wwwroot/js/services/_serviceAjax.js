@@ -4,17 +4,46 @@ import { LibAjax } from "../lib/_libAjax.js"
 
 export class ServiceAjax {
     #url
+    #redirectUrl
     #libAjax
     #sweetAlert
     #spinner
     constructor() {
         this.#url = (window.location.host.includes("localhost")) ? "/api" : "/TestSystem/api";
+        this.#redirectUrl = "identity/signin";
         this.#libAjax = new LibAjax();
         this.#sweetAlert = new SweetAlert();
         this.#spinner = new Spinner();
     }
     GetDefaultUrl() {
         return this.#url;
+    }
+    #GetErrorResponse(err) {
+        var errorResponse;
+        var errorMessage = "";
+        if (err.responseJSON !== undefined) {
+            //error message from mapping data to model
+            if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
+                for (var key in err.responseJSON.errors) {
+                    errorMessage += err.responseJSON.errors[key][0];
+                }
+            }
+            else {
+                errorMessage = err.responseJSON.message //error message from manual sending 
+            }
+        }
+        else {
+            errorMessage = err.responseText // internal server eror
+        }
+        errorResponse = {
+            responseJSON: {
+                message: errorMessage,
+                statusText: err.statusText,
+                status: err.status,
+                title: (err.status == 400) ? "warning" : "error"
+            }
+        }
+        return errorResponse;
     }
     async GetAsync({ url = null, data = null, spinner = false }) {
         if (spinner) this.#spinner.Show();
@@ -27,38 +56,16 @@ export class ServiceAjax {
             }).catch(async (err) => {
                 if (spinner) this.#spinner.Hide();
                 if (err.status == 401) {
-                    this.#sweetAlert.Innitial({
+                    this.#sweetAlert.Initial({
                         icon: 'error',
                         title: 'Authentication fail',
                         text: "Cookies has expired. Please login again.",
-                        redirect: "Identity/login"
+                        redirect: this.#redirectUrl
                     });
                 }
                 else {
                     var errorResponse;
-                    var errorMessage = "";
-                    if (err.responseJSON !== undefined) {
-                        //error message from mapping data to model
-                        if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
-                            for (var key in err.responseJSON.errors) {
-                                errorMessage += err.responseJSON.errors[key][0];
-                            }
-                        }
-                        else {
-                            errorMessage = err.responseJSON.message //error message from manual sending 
-                        }
-                    }
-                    else {
-                        errorMessage = err.reponseText // internal server eror
-                    }
-                    errorResponse = {
-                        responseJSON: {
-                            message: errorMessage,
-                            statusText: err.statusText,
-                            status: err.status,
-                            title: (err.status == 400) ? "warning" : "error"
-                        }
-                    }
+                    errorResponse = this.#GetErrorResponse(err);
                     reject(errorResponse);
                 }
             });
@@ -75,37 +82,16 @@ export class ServiceAjax {
             }).catch(async (err) => {
                 if (spinner) this.#spinner.Hide();
                 if (err.status == 401) {
-                    this.#sweetAlert.Innitial({
+                    this.#sweetAlert.Initial({
                         icon: 'error',
                         title: 'Authentication fail',
                         text: "Cookies has expired. Please login again.",
-                        redirect: "Identity/login"
+                        redirect: this.#redirectUrl
                     });
                 }                
                 else {
                     var errorResponse;
-                    var errorMessage = "";
-                    if (err.responseJSON !== undefined) {
-                        if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
-                            for (var key in err.responseJSON.errors) {
-                                errorMessage += err.responseJSON.errors[key][0];
-                            }
-                        }
-                        else {
-                            errorMessage = err.responseJSON.message
-                        }
-                    }                    
-                    else {
-                        errorMessage = err.reponseText
-                    }
-                    errorResponse = {
-                        responseJSON: {
-                            message: errorMessage,
-                            statusText: err.statusText,
-                            status: err.status,
-                            title: (err.status == 400) ? "warning" : "error"
-                        }
-                    }
+                    errorResponse = this.#GetErrorResponse(err);
                     reject(errorResponse);
                 }
             });
@@ -122,37 +108,16 @@ export class ServiceAjax {
             }).catch(async (err) => {
                 if (spinner) this.#spinner.Hide();
                 if (err.status == 401) {
-                    this.#sweetAlert.Innitial({
+                    this.#sweetAlert.Initial({
                         icon: 'error',
                         title: 'Authentication fail',
                         text: "Cookies has expired. Please login again.",
-                        redirect: "Identity/login"
+                        redirect: this.#redirectUrl
                     });                    
                 }
                 else {
                     var errorResponse;
-                    var errorMessage = "";
-                    if (err.responseJSON !== undefined) {
-                        if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
-                            for (var key in err.responseJSON.errors) {
-                                errorMessage += err.responseJSON.errors[key][0];
-                            }
-                        }
-                        else {
-                            errorMessage = err.responseJSON.message
-                        }
-                    }
-                    else {
-                        errorMessage = err.reponseText
-                    }
-                    errorResponse = {
-                        responseJSON: {
-                            message: errorMessage,
-                            statusText: err.statusText,
-                            status: err.status,
-                            title: (err.status == 400) ? "warning" : "error"
-                        }
-                    }
+                    errorResponse = this.#GetErrorResponse(err);
                     reject(errorResponse);
                 }
             });
@@ -168,37 +133,16 @@ export class ServiceAjax {
             }).catch(async (err) => {
                 if (spinner) this.#spinner.Hide();
                 if (err.status == 401) {
-                    this.#sweetAlert.Innitial({
+                    this.#sweetAlert.Initial({
                         icon: 'error',
                         title: 'Authentication fail',
                         text: "Cookies has expired. Please login again.",
-                        redirect: "Identity/login"
+                        redirect: this.#redirectUrl
                     });
                 }
                 else {
                     var errorResponse;
-                    var errorMessage = "";
-                    if (err.responseJSON !== undefined) {
-                        if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
-                            for (var key in err.responseJSON.errors) {
-                                errorMessage += err.responseJSON.errors[key][0];
-                            }
-                        }
-                        else {
-                            errorMessage = err.responseJSON.message
-                        }
-                    }
-                    else {
-                        errorMessage = err.reponseText
-                    }
-                    errorResponse = {
-                        responseJSON: {
-                            message: errorMessage,
-                            statusText: err.statusText,
-                            status: err.status,
-                            title: (err.status == 400) ? "warning" : "error"
-                        }
-                    }
+                    errorResponse = this.#GetErrorResponse(err);
                     reject(errorResponse);
                 }
             });
@@ -215,42 +159,20 @@ export class ServiceAjax {
             }).catch(async (err) => {
                 if (spinner) this.#spinner.Hide();
                 if (err.status == 401) {
-                    this.#sweetAlert.Innitial({
+                    this.#sweetAlert.Initial({
                         icon: 'error',
                         title: 'Authentication fail',
                         text: "Cookies has expired. Please login again.",
-                        redirect: "Identity/login"
+                        redirect: this.#redirectUrl
                     });
                     
                 }
                 else {
                     var errorResponse;
-                    var errorMessage = "";
-                    if (err.responseJSON !== undefined) {
-                        if (err.responseJSON.errors !== undefined || err.responseJSON.message === undefined) {
-                            for (var key in err.responseJSON.errors) {
-                                errorMessage += err.responseJSON.errors[key][0];
-                            }
-                        }
-                        else {
-                            errorMessage = err.responseJSON.message
-                        }
-                    }
-                    else {
-                        errorMessage = err.reponseText
-                    }
-                    errorResponse = {
-                        responseJSON: {
-                            message: errorMessage,
-                            statusText: err.statusText,
-                            status: err.status,
-                            title: (err.status == 400) ? "warning" : "error"
-                        }
-                    }
+                    errorResponse = this.#GetErrorResponse(err);
                     reject(errorResponse);
                 }
             });
         });
     }
-
 }
