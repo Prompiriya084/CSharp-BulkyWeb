@@ -1,7 +1,9 @@
 ﻿import { ServiceAjax } from "../services/_serviceAjax.js"
 import { ServiceElement } from "../services/_serviceElement.js"
+import { libDataTable } from "../lib/_libDataTable.js"
 const serviceAjax = new ServiceAjax();
 const serviceElement = new ServiceElement();
+const productTable = new libDataTable("#tbProduct");
 const productData = () => {
     return {
         name: $("#inpProductName").val(),
@@ -10,6 +12,9 @@ const productData = () => {
     }
 }
 $(document).ready(async () => {
+    await productTable.Initial({
+        data: null
+    });
     await GetProducts();
     await GetProductsByDate("20250310");
     await serviceElement.selector.Initial("#sltCategory");
