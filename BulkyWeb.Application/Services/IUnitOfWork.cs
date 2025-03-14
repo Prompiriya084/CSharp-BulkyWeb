@@ -1,4 +1,5 @@
 ﻿using BulkyWeb.Infrastructure.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace BulkyWeb.Application.Services
         IUserAuthenRepository UserAuthen { get; }
         IUserInfoRepository UserInfo { get; }
         IUserAuthorizeRepository UserAuthorize { get; }
+        Task<IDbContextTransaction> BeginTransaction();
         Task SaveAsync();
     }
 }

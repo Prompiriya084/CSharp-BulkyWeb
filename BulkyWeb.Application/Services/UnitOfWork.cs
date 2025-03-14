@@ -2,6 +2,7 @@
 using BulkyWeb.Infrastructure.Repositories;
 using BulkyWeb.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,24 @@ namespace BulkyWeb.Application.Services
             UserAuthen = new UserAthenRepository(dbContext);
             UserInfo = new UserInfoRepository(dbContext);
             UserAuthorize = new UserAuthorizeRepository(dbContext);
+        }
+        public async Task<IDbContextTransaction> BeginTransaction()
+        {
+            try
+            {
+               return await _dbContext.Database.BeginTransactionAsync();
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null)
+                {
+                    throw new Exception($"Inner exception : {ex.InnerException.Message}");
+                }
+                else
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
         }
         public async Task SaveAsync()
         {
