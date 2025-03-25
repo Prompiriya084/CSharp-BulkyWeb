@@ -39,8 +39,8 @@ builder.Services.AddScoped<HttpContextAccessor>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<_ISerilog, _Serilog>();
 builder.Services.AddScoped<ICustomLib, CustomLib>();
-builder.Services.AddScoped<INotification, EmailNotification>();
-builder.Services.AddScoped<INotification>(em => new EmailNotification("input ip mail"));
+builder.Services.AddScoped<INotification, EmailNotification>(); //auto instant 
+builder.Services.AddScoped<INotification>(em => new EmailNotification("input ip mail")); // when using a INotication => Inotication notification = new EmailNotification("input ip mail")
 builder.Services.AddScoped<INotificationService>();
 
 // Add services to the container.
