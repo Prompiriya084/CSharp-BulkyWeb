@@ -9,13 +9,11 @@ namespace BulkyWeb.Application.CustomLib
 {
     public class CustomLib : ICustomLib
     {
-        public IMailLib Mail { get; set; }
         public IDateTimeLib Datetime { get; set; }
         public IFileLib File { get; set; }
         public IValidatorLib Validator { get; set; }
         public CustomLib() 
         {
-            Mail = new MailLib();
             Datetime = new DateTimeLib();
             File = new FileLib();
             Validator = new ValidatorLib();

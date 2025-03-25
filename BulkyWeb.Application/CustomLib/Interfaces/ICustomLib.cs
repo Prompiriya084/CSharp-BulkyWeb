@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace BulkyWeb.Application.CustomLib.Interfaces
 {
     public interface ICustomLib
-    {
-        IMailLib Mail { get; }
+    { 
         IDateTimeLib Datetime { get; }
         IFileLib File { get; }
         IValidatorLib Validator { get; }

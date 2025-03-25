@@ -11,6 +11,8 @@ using BulkyWeb.Application.CustomLib.Interfaces;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 using Azure.Core;
+using BulkyWeb.Application.NotificationServices.Interfaces;
+using BulkyWeb.Application.NotificationServices;
 
 namespace BulkyWeb.ApiControllers
 {
@@ -21,6 +23,7 @@ namespace BulkyWeb.ApiControllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly _ISerilog _serilog;
         private readonly ICustomLib _ctoLib;
+        private readonly INotificationService _notificationService;
         private readonly IHttpContextAccessor _contextAccessor;
         private async Task CreateCookies(UserInfo user, List<string> authorization)
         {
@@ -60,12 +63,13 @@ namespace BulkyWeb.ApiControllers
         public IdentityController(IUnitOfWork unitOfWork
             , _ISerilog serilog
             , ICustomLib ctoLib
+            , INotificationService notificationService
             , IHttpContextAccessor httpContextAccessor) 
         {
             _unitOfWork = unitOfWork;
             _serilog = serilog;
             _ctoLib = ctoLib;
-
+            _notificationService = notificationService;
             _contextAccessor = httpContextAccessor;
         }
         [HttpPost]
@@ -216,8 +220,11 @@ namespace BulkyWeb.ApiControllers
                         message = errEmailMessage
                     });
                 }
-
-                await _ctoLib.Mail.SendEmailAsync("test@email.com", email, "Testtttttt subjectt", "test message");
+                var message = new NotificationMessage(
+                    to:"receiver@example.com",
+                    message: "test message"
+                    );
+                await _notificationService.Notify(message);
                 var userClaimName = _contextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Name)?.Value;
                 _serilog.LogInformation($"{userClaimName} (test@email.com) send email to {email}");
                 
