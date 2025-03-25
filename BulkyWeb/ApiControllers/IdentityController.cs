@@ -222,9 +222,11 @@ namespace BulkyWeb.ApiControllers
                 }
                 var message = new NotificationMessage(
                     to:"receiver@example.com",
-                    message: "test message"
+                    body: "test message"
                     );
+
                 await _notificationService.Notify(message);
+
                 var userClaimName = _contextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Name)?.Value;
                 _serilog.LogInformation($"{userClaimName} (test@email.com) send email to {email}");
                 

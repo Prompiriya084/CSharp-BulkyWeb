@@ -23,14 +23,14 @@ namespace BulkyWeb.Application.NotificationServices
 
                 var mailMessage = new MailMessage
                 {
-                    From = new MailAddress(message._from),
-                    Subject = $"{message._subject}",
-                    Body = message._message + message._footer,
+                    From = new MailAddress(message.From),
+                    Subject = $"{message.Subject}",
+                    Body = message.Body + message.Footer,
                     //"<p class='fs-2'>Best regard.</p><h3>Auto process by test system.</h4>",
                     IsBodyHtml = true,
                 };
 
-                mailMessage.To.Add(message._to);
+                mailMessage.To.Add(message.To);
 
                 //foreach (var ccEmail in CcEmails)
                 //{
