@@ -180,6 +180,12 @@ namespace BulkyWeb.ApiControllers
                 
                 await _unitOfWork.SaveAsync();
 
+                var message = new NotificationMessage(
+                    to: "receiver@example.com",
+                    body: "welcome to our platform"
+                    );
+                await _notificationService.Notify(message);
+
                 _serilog.LogInformation($"INSERT INTO UserAuthen | Obj : {JsonConvert.SerializeObject(newUserAuth)}");
                 _serilog.LogInformation($"INSERT INTO UserInfo | Obj : {JsonConvert.SerializeObject(newUserInfo)}");
                 _serilog.LogInformation($"INSERT INTO UserAuthorize | Obj : {JsonConvert.SerializeObject(newUserAthorizeList)}");
