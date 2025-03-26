@@ -8,6 +8,6 @@ namespace BulkyWeb.Application.NotificationServices.Interfaces
 {
     public interface INotificationService
     {
-        Task Notify(NotificationMessage message);
+        Task Notify(INotificationMessage message);
     }
 }

@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace BulkyWeb.Application.NotificationServices.Interfaces
 {
-    public interface INotification
+    public interface INotificationMessage
     {
-        Task SendAsync(INotificationMessage message);
+        public string From { get; }
+        public string To { get; }
+        public string Body { get; }
+
+        
     }
 }

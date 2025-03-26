@@ -14,7 +14,7 @@ namespace BulkyWeb.Application.NotificationServices
         {
             _notification = nofitication;
         }
-        public async Task Notify(NotificationMessage message)
+        public async Task Notify(INotificationMessage message)
         {
             await _notification.SendAsync(message);
         }

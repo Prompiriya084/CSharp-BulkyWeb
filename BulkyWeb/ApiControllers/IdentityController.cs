@@ -180,9 +180,9 @@ namespace BulkyWeb.ApiControllers
                 
                 await _unitOfWork.SaveAsync();
 
-                var message = new NotificationMessage(
-                    to: "receiver@example.com",
-                    body: "welcome to our platform"
+                var message = new SMSNotificationMessage(
+                    to: "+66123456789",
+                    body: "Test message no reply"
                     );
                 await _notificationService.Notify(message);
 
@@ -226,7 +226,7 @@ namespace BulkyWeb.ApiControllers
                         message = errEmailMessage
                     });
                 }
-                var message = new NotificationMessage(
+                var message = new MailNotificationMessage(
                     to:"receiver@example.com",
                     body: "test message"
                     );
