@@ -1,4 +1,6 @@
-﻿using BulkyWeb.Application.CustomLib.Interfaces;
+﻿using BulkyWeb.Application.CustomLib.Files.Services;
+using BulkyWeb.Application.CustomLib.Files.Services.Interfaces;
+using BulkyWeb.Application.CustomLib.Interfaces;
 using BulkyWeb.Application.Services;
 using BulkyWeb.Domain.Models;
 using BulkyWeb.Models.ViewModels;
@@ -18,7 +20,9 @@ namespace BulkyWeb.ApiControllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly _ISerilog _serilog;
         private readonly ICustomLib _ctoLib;
-        public ProductController(IUnitOfWork unitOfWork, _ISerilog serilog, ICustomLib customLib) 
+        public ProductController(IUnitOfWork unitOfWork,
+            _ISerilog serilog,
+            ICustomLib customLib) 
         {
             _unitOfWork = unitOfWork;
             _serilog = serilog;
@@ -230,6 +234,50 @@ namespace BulkyWeb.ApiControllers
             catch (Exception ex)
             {
 
+                return StatusCode(500, new
+                {
+                    message = ex.Message,
+                });
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> ExportFile(string id)
+        {
+            try
+            {
+                byte[] fileData;
+                string fileName = "product.xlsx";
+                string contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                int parsedId;
+                if (!int.TryParse(id, out parsedId))
+                {
+                    return BadRequest();
+                }
+
+                var product = _unitOfWork.Product.GetAll(x => x.Id == parsedId && x.DeletedDate == null);
+
+                //if (request.Format.ToLower() == "pdf")
+                //{
+                //    fileData = await _pdfService.ExportAsync(request);
+                //    fileName = "export.pdf";
+                //    contentType = "application/pdf";
+                //}
+                //else if (request.Format.ToLower() == "excel")
+                //{
+                //    fileData = await _excelService.ExportAsync(request);
+                //    fileName = "export.xlsx";
+                //    contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                //}
+                //else
+                //{
+                //    return BadRequest("Invalid format. Use 'pdf' or 'excel'.");
+                //}
+                var excelFiles = await _ctoLib.File.Excel.ExportAsync<Product>(product);
+
+                return File(excelFiles, contentType, fileName);
+            }
+            catch (Exception ex)
+            {
                 return StatusCode(500, new
                 {
                     message = ex.Message,

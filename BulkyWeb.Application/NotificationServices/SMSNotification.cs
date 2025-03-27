@@ -24,7 +24,6 @@ namespace BulkyWeb.Application.NotificationServices
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
         }
