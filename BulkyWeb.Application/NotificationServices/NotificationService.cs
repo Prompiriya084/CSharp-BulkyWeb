@@ -9,14 +9,17 @@ namespace BulkyWeb.Application.NotificationServices
 {
     public class NotificationService : INotificationService
     {
-        private readonly INotification _notification;
-        public NotificationService(INotification nofitication) 
+        private readonly IEnumerable<INotification> _notification;
+        public NotificationService(IEnumerable<INotification> nofitication) 
         {
             _notification = nofitication;
         }
         public async Task Notify(INotificationMessage message)
         {
-            await _notification.SendAsync(message);
+            foreach (var notification in _notification)
+            {
+                await notification.SendAsync(message);
+            }
         }
     }
 }
