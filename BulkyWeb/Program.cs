@@ -45,6 +45,8 @@ builder.Services.AddScoped<ICustomLib, CustomLib>();
 builder.Services.AddScoped<INotification>(em => new EmailNotification("input ip mail")); //set default and using a INotication => INotication notification = new EmailNotification("input ip mail")
 builder.Services.AddScoped<INotificationService, NotificationService>();
 
+
+//builder.Services.AddScoped<NotificationService>(); // ใช้เป็นตัวกลาง
 //// Register OrderService ให้ใช้ EmailNotification *กรณีประกาศ service layer
 //builder.Services.AddScoped<OrderService>(sp =>
 //    new OrderService(new NotificationService(new EmailNotification())));
