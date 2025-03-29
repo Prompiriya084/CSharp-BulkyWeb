@@ -1,4 +1,5 @@
-﻿using BulkyWeb.Infrastructure.Data;
+﻿using BulkyWeb.Application.Services.Interfaces;
+using BulkyWeb.Infrastructure.Data;
 using BulkyWeb.Infrastructure.Repositories;
 using BulkyWeb.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;

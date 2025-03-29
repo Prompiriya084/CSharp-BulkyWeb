@@ -1,5 +1,5 @@
 ﻿using Azure.Core;
-using BulkyWeb.Application.Services;
+using BulkyWeb.Application.Services.Interfaces;
 using BulkyWeb.Domain.Models;
 using BulkyWeb.Models.ViewModels;
 using BulkyWeb.Services.Serilog;

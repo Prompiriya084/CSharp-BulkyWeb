@@ -1,7 +1,7 @@
 ﻿using BulkyWeb.Application.CustomLib.Files.Services;
 using BulkyWeb.Application.CustomLib.Files.Services.Interfaces;
 using BulkyWeb.Application.CustomLib.Interfaces;
-using BulkyWeb.Application.Services;
+using BulkyWeb.Application.Services.Interfaces;
 using BulkyWeb.Domain.Models;
 using BulkyWeb.Models.ViewModels;
 using BulkyWeb.Services.Serilog;

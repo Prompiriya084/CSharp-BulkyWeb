@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BulkyWeb.Application.Services
+namespace BulkyWeb.Application.Services.Interfaces
 {
     public interface IUnitOfWork
     {
-        IProductRepository Product {  get; }
+        IProductRepository Product { get; }
         ICategoryRepository Category { get; }
         IUserAuthenRepository UserAuthen { get; }
         IUserInfoRepository UserInfo { get; }

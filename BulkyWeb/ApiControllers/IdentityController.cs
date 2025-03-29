@@ -1,5 +1,4 @@
-﻿using BulkyWeb.Application.Services;
-using BulkyWeb.Domain.Models;
+﻿using BulkyWeb.Domain.Models;
 using BulkyWeb.Models.ViewModels;
 using BulkyWeb.Services.Serilog;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -13,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Azure.Core;
 using BulkyWeb.Application.NotificationServices.Interfaces;
 using BulkyWeb.Application.NotificationServices;
+using BulkyWeb.Application.Services.Interfaces;
 
 namespace BulkyWeb.ApiControllers
 {

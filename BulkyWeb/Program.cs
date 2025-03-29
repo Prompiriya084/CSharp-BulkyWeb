@@ -3,11 +3,13 @@ using BulkyWeb.Application.CustomLib.Interfaces;
 using BulkyWeb.Application.NotificationServices;
 using BulkyWeb.Application.NotificationServices.Interfaces;
 using BulkyWeb.Application.Services;
+using BulkyWeb.Application.Services.Interfaces;
 using BulkyWeb.Infrastructure.Data;
 using BulkyWeb.Services.Serilog;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
@@ -39,9 +41,17 @@ builder.Services.AddScoped<HttpContextAccessor>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<_ISerilog, _Serilog>();
 builder.Services.AddScoped<ICustomLib, CustomLib>();
-builder.Services.AddScoped<INotification, SMSNotification>(); //In case no default parameter 
-builder.Services.AddScoped<INotification>(em => new EmailNotification("input ip mail")); // when using a INotication => INotication notification = new EmailNotification("input ip mail")
+//builder.Services.AddScoped<INotification, SMSNotification>(); //In case no default parameter 
+builder.Services.AddScoped<INotification>(em => new EmailNotification("input ip mail")); //set default and using a INotication => INotication notification = new EmailNotification("input ip mail")
 builder.Services.AddScoped<INotificationService, NotificationService>();
+
+//// Register OrderService ให้ใช้ EmailNotification *กรณีประกาศ service layer
+//builder.Services.AddScoped<OrderService>(sp =>
+//    new OrderService(new NotificationService(new EmailNotification())));
+
+//// Register UserService ให้ใช้ SMSNotification *กรณีประกาศ service layer
+//builder.Services.AddScoped<UserService>(sp =>
+//    new UserService(new NotificationService(new SMSNotification())));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
